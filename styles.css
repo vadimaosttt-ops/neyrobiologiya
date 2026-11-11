@@ -446,7 +446,7 @@ kbd{
 }
 .neuron-board{
   position:relative;
-  width:min(1050px,100%,calc((100dvh - 480px) * 1.607));
+  width:min(1050px,100%,calc((100dvh - 500px) * 1.607));
   aspect-ratio:900/560;
   border-radius:26px;
   border:1px solid rgba(158,255,203,.10);
