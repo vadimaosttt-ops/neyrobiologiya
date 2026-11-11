@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04100c">
+<meta name="description" content="Интерактивная викторина по нервной системе для 9 класса: вопросы и нейрокарта с перетаскиванием.">
+<title>Нервная система — интерактивная викторина · 9 класс</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+<div class="noise" aria-hidden="true"></div>
+
+<div id="app">
+  <header class="topbar">
+    <button class="brand" id="brand" type="button" aria-label="На старт. Пять быстрых нажатий — полный сброс.">
+      <span class="brand-title">НЕЙРО</span>
+      <span class="brand-sub">биология · 9 класс</span>
+    </button>
+
+    <nav class="main-nav" aria-label="Разделы">
+      <button type="button" data-nav="home" class="active">Старт</button>
+      <button type="button" data-nav="quiz">Викторина</button>
+      <button type="button" data-nav="map">Нейрокарта</button>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="fullscreenBtn" type="button" aria-label="На весь экран" title="На весь экран (F)">
+        <svg class="ico-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+        </svg>
+        <svg class="ico-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 8H5a2 2 0 0 1-2-2V3M16 8h3a2 2 0 0 0 2-2V3M8 16H5a2 2 0 0 0-2 2v3M16 16h3a2 2 0 0 1 2 2v3"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- СТАРТ -->
+    <section class="view home-view active" id="view-home" data-view="home" aria-label="Старт">
+      <div class="home-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Биология · 9 класс · интерактивный урок</div>
+          <h1>Нервная<br><span class="grad">система</span></h1>
+          <p class="lead">Как мозг управляет телом? Проверьте себя в викторине и соберите две нейрокарты — от строения нейрона до рефлекторной дуги.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" type="button" data-start="quiz">
+              Начать викторину
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-ghost btn-lg" type="button" data-start="map">Нейрокарта</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>12</b><span>вопросов</span></div>
+            <div class="stat"><b>2</b><span>карты</span></div>
+            <div class="stat"><b>≈10</b><span>минут</span></div>
+            <div class="stat stat-best" id="bestStat" hidden><b id="bestScore">0</b><span>личный рекорд</span></div>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-glow"></div>
+          <svg class="neuron-art" viewBox="0 0 640 640">
+            <defs>
+              <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#2ee08a" stop-opacity=".30"/>
+                <stop offset="55%" stop-color="#0f7a54" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#04100c" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="fiber" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b9ffd6"/>
+                <stop offset=".5" stop-color="#7cf5b0"/>
+                <stop offset="1" stop-color="#63d7e8"/>
+              </linearGradient>
+              <radialGradient id="somaFill" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#1e6d51"/>
+                <stop offset=".6" stop-color="#0d3b2c"/>
+                <stop offset="1" stop-color="#08251b"/>
+              </radialGradient>
+              <radialGradient id="nucleusFill" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#d8ffe9"/>
+                <stop offset=".45" stop-color="#7cf5b0"/>
+                <stop offset="1" stop-color="#1e8f62"/>
+              </radialGradient>
+              <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <circle cx="320" cy="320" r="300" fill="url(#halo)"/>
+            <g class="orbit-ring">
+              <circle cx="320" cy="320" r="232" fill="none" stroke="#7cf5b0" stroke-opacity=".16" stroke-dasharray="2 12"/>
+              <circle cx="320" cy="320" r="278" fill="none" stroke="#63d7e8" stroke-opacity=".10" stroke-dasharray="1 16"/>
+              <circle cx="320" cy="88" r="4" fill="#7cf5b0" fill-opacity=".8"/>
+              <circle cx="552" cy="320" r="3" fill="#63d7e8" fill-opacity=".7"/>
+            </g>
+
+            <g class="neuron-body" filter="url(#softGlow)">
+              <!-- дендриты -->
+              <g fill="none" stroke="url(#fiber)" stroke-width="3.2" stroke-linecap="round">
+                <path d="M262 286C230 258 208 226 186 198C168 176 142 164 116 158"/>
+                <path d="M186 198C182 172 184 150 194 126"/>
+                <path d="M186 198C162 196 142 188 124 174"/>
+                <path d="M248 364C218 390 190 406 158 418C134 427 116 442 102 460"/>
+                <path d="M158 418C164 440 160 458 148 476"/>
+                <path d="M274 266C270 232 280 206 296 182C306 166 310 146 310 126"/>
+                <path d="M296 182C316 174 332 160 342 142"/>
+                <path d="M338 372C348 402 368 426 392 446C408 460 418 478 422 496"/>
+                <path d="M392 446C414 446 432 438 446 424"/>
+              </g>
+              <g fill="#b9ffd6">
+                <circle cx="116" cy="158" r="4.5"/><circle cx="194" cy="126" r="4"/><circle cx="124" cy="174" r="3.5"/>
+                <circle cx="102" cy="460" r="4.5"/><circle cx="148" cy="476" r="4"/><circle cx="310" cy="126" r="4.5"/>
+                <circle cx="342" cy="142" r="3.5"/><circle cx="422" cy="496" r="4.5"/><circle cx="446" cy="424" r="3.5"/>
+              </g>
+
+              <!-- аксон -->
+              <path d="M362 322C420 322 470 312 520 306C548 303 570 300 592 298" fill="none" stroke="url(#fiber)" stroke-width="4" stroke-linecap="round"/>
+              <!-- миелиновые сегменты -->
+              <g fill="#0b3326" stroke="#7cf5b0" stroke-opacity=".55" stroke-width="1.5">
+                <rect x="386" y="303" width="58" height="34" rx="17" transform="rotate(-3 415 320)"/>
+                <rect x="454" y="300" width="58" height="34" rx="17" transform="rotate(-3 483 317)"/>
+                <rect x="522" y="298" width="58" height="34" rx="17" transform="rotate(-3 551 315)"/>
+              </g>
+              <!-- терминали -->
+              <g fill="none" stroke="url(#fiber)" stroke-width="3" stroke-linecap="round">
+                <path d="M592 298C612 274 630 254 652 238"/>
+                <path d="M592 298C616 300 640 300 666 300"/>
+                <path d="M592 298C612 322 630 344 652 360"/>
+              </g>
+              <g fill="#b9ffd6">
+                <circle cx="652" cy="238" r="5"/><circle cx="666" cy="300" r="5"/><circle cx="652" cy="360" r="5"/>
+              </g>
+
+              <!-- тело -->
+              <path d="M300 256C344 254 372 282 370 322C368 362 338 388 296 386C256 384 230 352 232 314C234 280 260 258 300 256Z" fill="url(#somaFill)" stroke="url(#fiber)" stroke-width="3"/>
+              <circle cx="298" cy="320" r="28" fill="url(#nucleusFill)" opacity=".9"/>
+              <circle cx="290" cy="311" r="8" fill="#ffffff" opacity=".35"/>
+              <circle cx="330" cy="350" r="4" fill="#7cf5b0" opacity=".8"/>
+              <circle cx="264" cy="344" r="3" fill="#63d7e8" opacity=".8"/>
+            </g>
+
+            <!-- импульс -->
+            <circle r="5" fill="#eafff2" filter="url(#softGlow)">
+              <animateMotion dur="4.4s" repeatCount="indefinite" path="M362 322C420 322 470 312 520 306C548 303 570 300 592 298C612 274 630 254 652 238"/>
+            </circle>
+          </svg>
+
+          <div class="float-chip chip-1"><span class="chip-dot"></span>нейрон</div>
+          <div class="float-chip chip-2"><span class="chip-dot cyan"></span>синапс</div>
+          <div class="float-chip chip-3"><span class="chip-dot gold"></span>импульс</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВИКТОРИНА -->
+    <section class="view quiz-view" id="view-quiz" data-view="quiz" aria-label="Викторина">
+      <div class="quiz-wrap">
+        <div class="quiz-top">
+          <div class="q-progress-label">
+            <span>Вопрос <b id="qNum">1</b> <span class="q-total">/ 12</span></span>
+            <span class="q-topic">Нервная система</span>
+          </div>
+          <div class="score-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg>
+            <span>Баллы: <b id="score">0</b></span>
+          </div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="quiz-card" id="quizCard">
+          <div class="q-kicker"><span></span>Выберите один вариант</div>
+          <h2 id="qText">Загрузка вопроса…</h2>
+          <div class="options" id="qOptions" role="group" aria-label="Варианты ответа"></div>
+          <div class="explain" id="qExplain" hidden></div>
+          <div class="quiz-footer">
+            <span class="kbd-hint">Клавиши <kbd>1</kbd>–<kbd>4</kbd> — ответ, <kbd>Enter</kbd> — дальше</span>
+            <button class="btn btn-primary" id="nextBtn" type="button" disabled>
+              Дальше
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- РЕЗУЛЬТАТ -->
+    <section class="view result-view" id="view-result" data-view="result" aria-label="Результат">
+      <div class="result-card">
+        <div class="result-ring" id="resultRing">
+          <svg viewBox="0 0 240 240" aria-hidden="true">
+            <defs>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#7cf5b0"/>
+                <stop offset="1" stop-color="#63d7e8"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="120" cy="120" r="96" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="12"/>
+            <circle class="ring-fill" id="ringFill" cx="120" cy="120" r="96" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" transform="rotate(-90 120 120)"/>
+          </svg>
+          <div class="ring-text">
+            <b id="resultPercent">0%</b>
+            <span><span id="resultCorrect">0</span> из 12</span>
+          </div>
+        </div>
+        <div class="eyebrow result-eyebrow"><span class="eyebrow-dot"></span>Викторина завершена</div>
+        <h2 id="resultTitle">Отличный импульс!</h2>
+        <p class="result-desc" id="resultDesc"></p>
+        <div class="result-stats">
+          <div><b id="resultRight">0</b><span>верно</span></div>
+          <div><b id="resultWrong">0</b><span>ошибок</span></div>
+          <div><b id="resultBest">0</b><span>лучший результат</span></div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-primary btn-lg" type="button" id="retryBtn">Пройти ещё раз</button>
+          <button class="btn btn-ghost btn-lg" type="button" data-nav="home">На старт</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- НЕЙРОКАРТА -->
+    <section class="view map-view" id="view-map" data-view="map" aria-label="Нейрокарта">
+      <div class="map-wrap">
+        <div class="map-top">
+          <div class="map-heading">
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Соберите схему</div>
+            <h2 id="mapTitle">Строение нейрона</h2>
+            <p class="map-sub" id="mapSub">Перетащите подписи к нужным частям. На сенсорном экране можно нажать на подпись, а затем на зону.</p>
+          </div>
+          <div class="map-controls">
+            <div class="segmented" role="tablist" aria-label="Схемы">
+              <button type="button" data-map="neuron" class="active" role="tab" aria-selected="true">Нейрон</button>
+              <button type="button" data-map="reflex" role="tab" aria-selected="false">Рефлекторная дуга</button>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" id="mapReset">Сбросить</button>
+            <button class="btn btn-primary btn-sm" type="button" id="mapCheck">Проверить</button>
+          </div>
+        </div>
+
+        <div class="map-body" id="mapBody"></div>
+
+        <div class="tray-wrap">
+          <div class="tray-title"><span class="tray-line"></span><span id="trayTitle">Подписи</span></div>
+          <div class="chips-tray" id="chipsTray"></div>
+        </div>
+
+        <div class="map-feedback" id="mapFeedback" hidden></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>
