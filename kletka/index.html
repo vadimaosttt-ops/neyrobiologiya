@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f1e6">
+<meta name="description" content="Викторина по параграфам 3–5 биологии 6 класса: клеточное строение, жизнедеятельность клетки, размножение и рост. Реальные микрофотографии и фотографии с Wikimedia Commons.">
+<title>Клетка под микроскопом — викторина §3–5</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="paper-grain" aria-hidden="true"></div>
+
+<div id="app">
+  <header class="topbar">
+    <button class="brand" id="brand" type="button" title="На главную. Пять быстрых нажатий — полный сброс.">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 7h14M24 7v7"/>
+          <path d="M18 14h12l3 6H15l3-6Z"/>
+          <path d="M24 20v9"/>
+          <path d="M19 29h10l5 12H14l5-12Z"/>
+          <path d="M11 41h26"/>
+          <circle cx="35" cy="14" r="4"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <b>Клетка</b>
+        <i>викторина · §3–5</i>
+      </span>
+    </button>
+
+    <nav class="main-nav" aria-label="Разделы">
+      <button type="button" data-nav="home" class="active">Главная</button>
+      <button type="button" data-nav="quiz">Викторина</button>
+      <button type="button" data-nav="study">Шпаргалка</button>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="soundBtn" type="button" aria-label="Звук включён" aria-pressed="true" title="Звук">
+        <svg class="ico-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>
+        </svg>
+        <svg class="ico-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 4 6M21 9l-4 6"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="journalBtn" type="button" aria-label="Источники фотографий — фото" title="Источники фотографий">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"/><path d="M5 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2M9 8h6M9 12h6"/>
+        </svg>
+        <span class="jcount">фото</span>
+      </button>
+      <button class="icon-btn" id="fullscreenBtn" type="button" aria-label="Во весь экран" title="Во весь экран (F)">
+        <svg class="ico-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+        </svg>
+        <svg class="ico-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 8H5a2 2 0 0 1-2-2V3M16 8h3a2 2 0 0 0 2-2V3M8 16H5a2 2 0 0 0-2 2v3M16 16h3a2 2 0 0 1 2 2v3"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ================= ГЛАВНАЯ ================= -->
+    <section class="view home-view active" id="view-home" data-view="home" aria-label="Главная">
+      <div class="home-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Биология · 6 класс · параграфы 3–5</div>
+          <h1>Клетка<span class="h1-sub"><span class="grad">под</span> микроскопом</span></h1>
+          <p class="lead">Викторина по трём параграфам: строение растительной и животной клетки, её жизнедеятельность, размножение и рост. Каждый вопрос — с настоящей микрофотографией, а не рисунком.</p>
+
+          <div class="topic-picker" role="group" aria-label="Выбор темы">
+            <button class="topic-chip active" type="button" data-topic="all">
+              <b>Все темы</b><span>19 вопросов</span>
+            </button>
+            <button class="topic-chip" type="button" data-topic="3">
+              <b>§3 · Строение</b><span>7 вопросов</span>
+            </button>
+            <button class="topic-chip" type="button" data-topic="4">
+              <b>§4 · Жизнь клетки</b><span>6 вопросов</span>
+            </button>
+            <button class="topic-chip" type="button" data-topic="5">
+              <b>§5 · Деление и рост</b><span>6 вопросов</span>
+            </button>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" type="button" id="startBtn">
+              Начать викторину
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-ghost btn-lg" type="button" data-nav="study">Открыть шпаргалку</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat"><b>19</b><span>вопросов</span></div>
+            <div class="stat"><b>20</b><span>реальных фото</span></div>
+            <div class="stat"><b>3</b><span>параграфа</span></div>
+            <div class="stat stat-best" id="bestStat" hidden><b id="bestScore">0</b><span>лучший результат</span></div>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <figure class="photo-frame hero-frame">
+            <img src="assets/onion-epidermis.jpg" alt="Клетки кожицы лука под световым микроскопом" fetchpriority="high">
+            <span class="photo-stamp">×40</span>
+            <figcaption>Клетки кожицы лука. Световой микроскоп.</figcaption>
+          </figure>
+          <div class="float-note note-1"><span class="note-dot"></span>Настоящая микрофотография</div>
+          <div class="float-note note-2"><span class="note-dot warm"></span>Wikimedia Commons</div>
+        </div>
+      </div>
+
+      <div class="home-strip" aria-label="Что внутри">
+        <article class="strip-card" data-open-topic="3">
+          <span class="strip-num">§3</span>
+          <h2>Строение клетки</h2>
+          <p>Мембрана, цитоплазма, ядро. Оболочка, пластиды и вакуоли растений.</p>
+          <span class="strip-link">7 вопросов →</span>
+        </article>
+        <article class="strip-card" data-open-topic="4">
+          <span class="strip-num">§4</span>
+          <h2>Жизнедеятельность</h2>
+          <p>Питание и диффузия, дыхание, выделение, обмен веществ, раздражимость.</p>
+          <span class="strip-link">6 вопросов →</span>
+        </article>
+        <article class="strip-card" data-open-topic="5">
+          <span class="strip-num">§5</span>
+          <h2>Деление и рост</h2>
+          <p>Хромосомы, этапы деления ядра, две дочерние клетки, рост организма.</p>
+          <span class="strip-link">6 вопросов →</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= ВИКТОРИНА ================= -->
+    <section class="view quiz-view" id="view-quiz" data-view="quiz" aria-label="Викторина">
+      <div class="quiz-shell">
+        <div class="quiz-top">
+          <div class="quiz-meta">
+            <span class="quiz-topic" id="quizTopic">§3 · Строение</span>
+            <span class="quiz-count"><b id="qIndex">1</b> / <span id="qTotal">18</span></span>
+          </div>
+          <div class="quiz-scoreline">
+            <span class="score-pill"><span class="score-dot"></span><b id="scoreNow">0</b> баллов</span>
+            <span class="streak-pill" id="streakPill" hidden><span class="streak-mark"></span>серия <b id="streakNow">0</b></span>
+          </div>
+        </div>
+
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="quiz-card" id="quizCard">
+          <figure class="question-photo">
+            <img id="qImg" src="assets/onion-epidermis.jpg" alt="">
+            <span class="photo-stamp" id="qStamp">×40</span>
+            <figcaption id="qCaption">Клетки кожицы лука</figcaption>
+          </figure>
+
+          <div class="question-body">
+            <p class="question-kicker" id="qKicker">Вопрос 1</p>
+            <h2 class="question-text" id="qText">Загрузка вопроса…</h2>
+            <div class="options" id="options" role="group" aria-label="Варианты ответа"></div>
+
+            <div class="explain" id="explain" hidden>
+              <div class="explain-head" id="explainHead">Верно!</div>
+              <p id="explainText"></p>
+            </div>
+
+            <div class="question-actions">
+              <button class="btn btn-primary" id="nextBtn" type="button" disabled>
+                Следующий вопрос
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <button class="btn btn-quiet" id="quitBtn" type="button">Завершить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= РЕЗУЛЬТАТ ================= -->
+    <section class="view result-view" id="view-result" data-view="result" aria-label="Результат">
+      <div class="result-shell">
+        <div class="result-card">
+          <div class="result-badge" id="resultBadge">Готово</div>
+          <div class="result-ring" id="resultRing">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="ring-bg" cx="100" cy="100" r="86"/>
+              <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="86"/>
+            </svg>
+            <div class="ring-label">
+              <b id="resultPercent">0%</b>
+              <span id="resultScore">0 из 19</span>
+            </div>
+          </div>
+          <h2 id="resultTitle">Неплохой старт</h2>
+          <p class="result-sub" id="resultSub">Проверь разбор ошибок и попробуй ещё раз.</p>
+
+          <div class="result-bars" id="resultBars"></div>
+
+          <div class="result-actions">
+            <button class="btn btn-primary btn-lg" id="retryBtn" type="button">Пройти ещё раз</button>
+            <button class="btn btn-ghost btn-lg" id="homeBtn" type="button">На главную</button>
+          </div>
+        </div>
+
+        <div class="review-card" id="reviewCard" hidden>
+          <h3>Разбор ошибок</h3>
+          <div class="review-list" id="reviewList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ШПАРГАЛКА ================= -->
+    <section class="view study-view" id="view-study" data-view="study" aria-label="Шпаргалка">
+      <div class="study-shell">
+        <div class="study-head">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Коротко перед викториной</div>
+          <h2>Шпаргалка по §3–5</h2>
+          <p>Только главное — то, что встретится в вопросах.</p>
+        </div>
+
+        <div class="study-grid">
+          <article class="study-card">
+            <header><span class="strip-num">§3</span><h3>Строение клетки</h3></header>
+            <ul>
+              <li><b>Роберт Гук</b> — 350 лет назад рассмотрел срез пробки и назвал камеры клетками.</li>
+              <li><b>Три обязательные части:</b> цитоплазматическая мембрана, цитоплазма, ядро.</li>
+              <li><b>Клеточная стенка</b> — только у растений, из целлюлозы, придаёт форму.</li>
+              <li><b>Пластиды:</b> лейкопласты (бесцветные, запас), хромопласты (жёлтые, оранжевые, красные), хлоропласты (зелёные, хлорофилл).</li>
+              <li><b>Вакуоли</b> — только у растений, заполнены клеточным соком; запас и окраска.</li>
+              <li><b>Ядро</b> хранит наследственную информацию в хромосомах.</li>
+            </ul>
+            <figure class="study-photo"><img src="assets/elodea.jpg" alt="Хлоропласты в клетках элодеи"><figcaption>Хлоропласты в клетках элодеи</figcaption></figure>
+          </article>
+
+          <article class="study-card">
+            <header><span class="strip-num">§4</span><h3>Жизнедеятельность</h3></header>
+            <ul>
+              <li><b>Питание</b> — поступление веществ в клетку и их переработка.</li>
+              <li><b>Диффузия</b> — движение молекул из области, где их больше, туда, где их меньше.</li>
+              <li><b>Клеточное дыхание</b> — органические вещества + кислород → углекислый газ, вода и энергия.</li>
+              <li><b>Выделение</b> — удаление неусвоенных и вредных веществ.</li>
+              <li><b>Обмен веществ</b> — все эти процессы вместе.</li>
+              <li><b>Раздражимость</b> — способность клетки отвечать на воздействия среды.</li>
+            </ul>
+            <figure class="study-photo"><img src="assets/mitochondria.jpg" alt="Митохондрии под электронным микроскопом"><figcaption>Митохондрии, электронный микроскоп</figcaption></figure>
+          </article>
+
+          <article class="study-card">
+            <header><span class="strip-num">§5</span><h3>Деление и рост</h3></header>
+            <ul>
+              <li><b>Размножение клеток</b> — увеличение их количества делением.</li>
+              <li>Деление начинается после роста клетки; <b>первым делится ядро</b>.</li>
+              <li>Хромосомы <b>копируют себя</b> — образуются две одинаковые дочерние хромосомы.</li>
+              <li>Ядерная оболочка растворяется, хромосомы выстраиваются в центре и расходятся к полюсам.</li>
+              <li>Из одной материнской клетки получаются <b>две дочерние</b> — точные копии.</li>
+              <li><b>Рост</b> — увеличение массы и объёма цитоплазмы за счёт питательных веществ.</li>
+            </ul>
+            <figure class="study-photo"><img src="assets/mitosis1.jpg" alt="Делящиеся клетки в кончике корня лука"><figcaption>Деление клеток в кончике корня лука</figcaption></figure>
+          </article>
+        </div>
+
+        <div class="study-cta">
+          <p>Готов проверить себя?</p>
+          <button class="btn btn-primary btn-lg" type="button" id="studyStartBtn">Начать викторину</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ================= МОДАЛКА ИСТОЧНИКОВ ================= -->
+<div class="modal" id="journalModal" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="journalTitle">
+    <header class="modal-head">
+      <div>
+        <h2 id="journalTitle">Источники фотографий</h2>
+        <p>Все изображения — реальные фотографии и микрофотографии с Wikimedia Commons.</p>
+      </div>
+      <button class="icon-btn" type="button" data-close-modal aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <div class="credits-list" id="creditsList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="assets/credits.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
