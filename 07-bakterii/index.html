@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04100c">
+<meta name="description" content="Бактерии — мини-игра по § 7 учебника биологии для 6 класса: строение, формы, роль в природе и викторина на реальных микрофотографиях.">
+<title>Мир бактерий — мини-игра · § 7 · 6 класс</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="bg" class="bg" aria-hidden="true"></canvas>
+
+<div id="app">
+  <header class="topbar">
+    <button class="brand" id="brand" type="button" aria-label="На старт. Пять быстрых нажатий — полный сброс.">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <rect x="7" y="14" width="27" height="20" rx="10"/>
+          <path d="M34 24c5 0 5-7 9-7M34 24c5 0 5 7 9 7"/>
+          <circle cx="17" cy="24" r="3.2" fill="currentColor" stroke="none"/>
+          <circle cx="25" cy="20" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span class="brand-copy"><b>БАКТЕРИИ</b><i>§ 7 · 6 класс</i></span>
+    </button>
+
+    <nav class="nav" aria-label="Разделы">
+      <button type="button" data-nav="home" class="active">Старт</button>
+      <button type="button" data-nav="build">Строение</button>
+      <button type="button" data-nav="forms">Формы</button>
+      <button type="button" data-nav="role">Роль</button>
+      <button type="button" data-nav="quiz">Викторина</button>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="creditsBtn" type="button" aria-label="Источники фотографий" title="Источники фотографий">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="На весь экран" title="На весь экран (F)">
+        <svg class="ico-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg class="ico-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8H5a2 2 0 0 1-2-2V3M16 8h3a2 2 0 0 0 2-2V3M8 16H5a2 2 0 0 0-2 2v3M16 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- СТАРТ -->
+    <section class="view home-view active" id="view-home" data-view="home" aria-label="Старт">
+      <div class="home-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span>§ 7 · Биология · 6 класс</div>
+          <h1>Невидимый<br><span class="grad">мир бактерий</span></h1>
+          <p class="lead">Они живут в капле воды и в почве, помогают готовить сыр, а иногда и вредят. Собери бактерию, определи её форму, разберись в роли и проверь себя в викторине.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" type="button" data-start="build">Начать игру
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-ghost btn-lg" type="button" data-start="quiz">Сразу викторина</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>4</b><span>станции</span></div>
+            <div class="stat"><b>14</b><span>вопросов</span></div>
+            <div class="stat"><b>≈15</b><span>минут</span></div>
+            <div class="stat best" id="bestWrap" hidden><b id="bestVal">0</b><span>рекорд</span></div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <figure class="hero-photo">
+            <img src="assets/ecoli.jpg" alt="Кишечная палочка под электронным микроскопом" fetchpriority="high">
+            <figcaption>Кишечная палочка · электронный микроскоп</figcaption>
+          </figure>
+          <span class="hero-stamp">×50 000</span>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-head"><span class="mini-label">Маршрут</span><h2>Четыре станции и финал</h2></div>
+        <div class="route-grid">
+          <button class="route-card" type="button" data-start="build"><img src="assets/ecoli.jpg" alt=""><span><i>01 · станция</i><b>Строение</b><small>Собери клетку из шести подписей</small></span></button>
+          <button class="route-card" type="button" data-start="forms"><img src="assets/cocci.jpg" alt=""><span><i>02 · станция</i><b>Формы</b><small>Кокки, бациллы, спириллы, вибрионы</small></span></button>
+          <button class="route-card" type="button" data-start="role"><img src="assets/yogurt.jpg" alt=""><span><i>03 · станция</i><b>Роль</b><small>Санитары, помощники, вредители</small></span></button>
+          <button class="route-card" type="button" data-start="quiz"><img src="assets/agar.jpg" alt=""><span><i>04 · финал</i><b>Викторина</b><small>14 вопросов по всему параграфу</small></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СТРОЕНИЕ -->
+    <section class="view station-view" id="view-build" data-view="build" aria-label="Строение бактерии">
+      <div class="wrap">
+        <div class="station-head">
+          <div>
+            <div class="badge"><span>01</span>Станция · Строение</div>
+            <h2>Собери бактерию</h2>
+            <p>Перетащи подпись на метку — или сначала нажми подпись, затем метку. Оформленного ядра у бактерии нет: одна хромосома лежит прямо в цитоплазме.</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost btn-sm" id="buildReset" type="button">Сбросить</button>
+            <button class="btn btn-primary btn-sm" id="buildCheck" type="button">Проверить</button>
+          </div>
+        </div>
+
+        <div class="build-layout">
+          <div class="card stage-card">
+            <div class="card-head"><span><i></i>Схема · микропрепарат</span><small>наведи на часть</small></div>
+            <div class="cell-stage" id="cellStage">
+              <svg class="cell-art" viewBox="0 0 900 460" role="img" aria-label="Схема строения бактерии">
+                <defs>
+                  <linearGradient id="cyto" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14533c"/><stop offset="1" stop-color="#082a1f"/></linearGradient>
+                  <filter id="glowCell" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <g class="leaders" fill="none" stroke="rgba(158,255,203,.28)" stroke-width="1.6" stroke-dasharray="4 7">
+                  <path data-lead="capsule" d="M300 125 L180 70"/>
+                  <path data-lead="wall" d="M300 141 L180 180"/>
+                  <path data-lead="membrane" d="M300 154 L180 290"/>
+                  <path data-lead="cytoplasm" d="M570 205 L720 90"/>
+                  <path data-lead="chromosome" d="M470 235 L720 210"/>
+                  <path data-lead="flagellum" d="M770 230 L720 340"/>
+                </g>
+                <g class="flagellum-art" data-part="flagellum">
+                  <path d="M660 230 C700 230 700 186 740 186 C780 186 780 274 820 274" fill="none" stroke="#7cf5b0" stroke-width="6" stroke-linecap="round" filter="url(#glowCell)"/>
+                </g>
+                <g class="bacterium">
+                  <rect x="215" y="125" width="450" height="210" rx="105" fill="rgba(124,245,176,.07)" stroke="#63d7e8" stroke-width="2" stroke-dasharray="10 8" data-part="capsule"/>
+                  <rect x="230" y="141" width="420" height="178" rx="89" fill="rgba(124,245,176,.10)" stroke="#7cf5b0" stroke-width="5" data-part="wall"/>
+                  <rect x="243" y="154" width="394" height="152" rx="76" fill="url(#cyto)" stroke="rgba(124,245,176,.55)" stroke-width="2" data-part="membrane"/>
+                  <g opacity=".55" fill="#7cf5b0">
+                    <circle cx="330" cy="190" r="3"/><circle cx="370" cy="270" r="2.5"/><circle cx="520" cy="175" r="2.5"/><circle cx="560" cy="285" r="3"/><circle cx="610" cy="210" r="2.5"/>
+                  </g>
+                  <path d="M330 230 C355 195 385 265 415 225 S475 270 505 228 S560 262 585 230" fill="none" stroke="#ffd37a" stroke-width="6" stroke-linecap="round" data-part="chromosome"/>
+                  <ellipse cx="430" cy="230" rx="205" ry="82" fill="transparent" data-part="cytoplasm"/>
+                </g>
+                <circle cx="300" cy="125" r="4" fill="#63d7e8"/><circle cx="300" cy="141" r="4" fill="#7cf5b0"/><circle cx="300" cy="154" r="4" fill="#7cf5b0"/>
+                <circle cx="570" cy="205" r="4" fill="#ffd37a"/><circle cx="470" cy="235" r="4" fill="#ffd37a"/><circle cx="770" cy="230" r="4" fill="#7cf5b0"/>
+              </svg>
+              <div class="zones" id="zones"></div>
+            </div>
+            <div class="caption" id="buildCaption">Выбери подпись справа и нажми на нужную метку.</div>
+            <figure class="micro-inset"><img src="assets/ecoli.jpg" alt="Бактерия под электронным микроскопом" loading="lazy"><figcaption>Так она выглядит на самом деле</figcaption></figure>
+          </div>
+
+          <aside class="card side-card">
+            <div class="side-head"><span class="mini-label">Подписи</span><span class="count" id="buildCount">0 / 6</span></div>
+            <div class="chip-list" id="buildTray"></div>
+            <div class="hint"><span><i></i>перетащи на схему</span><span><i class="amber"></i>или нажми по очереди</span></div>
+            <div class="fact"><span>Факт</span><p>В 1 г плодородной почвы — до <b>20 млрд</b> бактерий, в капле воды — до <b>50 млн</b>.</p></div>
+          </aside>
+        </div>
+        <div class="feedback" id="buildFeedback" hidden></div>
+      </div>
+    </section>
+
+    <!-- ФОРМЫ -->
+    <section class="view station-view" id="view-forms" data-view="forms" aria-label="Формы бактерий">
+      <div class="wrap">
+        <div class="station-head">
+          <div>
+            <div class="badge"><span>02</span>Станция · Формы</div>
+            <h2>Кто здесь живёт?</h2>
+            <p>«Бактерия» по-гречески — «палочка», но формы бывают разными. Рассмотри четыре реальные микрофотографии и определи форму.</p>
+          </div>
+          <div class="score-box"><span>Определено</span><b id="formScore">0 / 4</b></div>
+        </div>
+        <div class="gallery" id="formGallery"></div>
+        <div class="form-lab">
+          <div class="card form-card">
+            <div class="form-head"><span class="mini-label"><i></i>Определи форму</span><span class="count" id="formRound">1 / 4</span></div>
+            <figure class="form-photo"><img id="formImg" src="assets/cocci.jpg" alt="Микрофотография бактерии"><span id="formBadge">?</span></figure>
+            <h3 id="formQuestion">Какая форма у этой бактерии?</h3>
+            <div class="options compact" id="formOptions"></div>
+            <div class="explain" id="formExplain" hidden></div>
+            <div class="actions end"><span class="kbd-hint">Выбери один вариант</span><button class="btn btn-primary" id="formNext" type="button" disabled>Дальше</button></div>
+          </div>
+          <div class="card form-notes">
+            <h3>Памятка</h3>
+            <div class="note-row"><img src="assets/cocci.jpg" alt=""><span><b>Кокки</b><small>шарики</small></span></div>
+            <div class="note-row"><img src="assets/bacilli.jpg" alt=""><span><b>Бациллы</b><small>палочки</small></span></div>
+            <div class="note-row"><img src="assets/spirilla.jpg" alt=""><span><b>Спириллы</b><small>спирали</small></span></div>
+            <div class="note-row"><img src="assets/vibrio.jpg" alt=""><span><b>Вибрионы</b><small>изогнутые палочки</small></span></div>
+            <p class="note-tip">Некоторые бактерии передвигаются с помощью жгутиков.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- РОЛЬ -->
+    <section class="view station-view" id="view-role" data-view="role" aria-label="Роль бактерий">
+      <div class="wrap">
+        <div class="station-head">
+          <div>
+            <div class="badge"><span>03</span>Станция · Роль</div>
+            <h2>Друг, санитар или враг?</h2>
+            <p>Распредели девять карточек по трём группам. Ошибки можно исправить до проверки.</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost btn-sm" id="roleReset" type="button">Сбросить</button>
+            <button class="btn btn-primary btn-sm" id="roleCheck" type="button">Проверить</button>
+          </div>
+        </div>
+        <div class="cycle">
+          <div class="cycle-step"><img src="assets/compost.jpg" alt="Растительные остатки"><b>Остатки</b><small>растений и животных</small></div>
+          <span class="cycle-arrow">→</span>
+          <div class="cycle-step"><img src="assets/agar.jpg" alt="Колонии бактерий"><b>Бактерии</b><small>разлагают остатки</small></div>
+          <span class="cycle-arrow">→</span>
+          <div class="cycle-step"><img src="assets/silage.jpg" alt="Поле и силос"><b>Минеральные соли</b><small>снова растениям</small></div>
+        </div>
+        <div class="card sort-card">
+          <div class="side-head"><span class="mini-label">Распредели карточки</span><span class="count" id="roleCount">0 / 9</span></div>
+          <div class="buckets" id="buckets"></div>
+          <div class="tray-wrap"><span class="mini-label">Карточки</span><div class="chip-list wide" id="roleTray"></div></div>
+          <div class="feedback" id="roleFeedback" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВИКТОРИНА -->
+    <section class="view station-view quiz-view" id="view-quiz" data-view="quiz" aria-label="Викторина">
+      <div class="quiz-wrap">
+        <div class="quiz-top">
+          <span>Вопрос <b id="qNum">1</b> <i>/ 14</i> <em>Бактерии · § 7</em></span>
+          <span class="score-pill">Баллы: <b id="qScore">0</b></span>
+        </div>
+        <div class="progress-track"><i id="qProgress"></i></div>
+        <div class="card quiz-card" id="quizCard">
+          <div class="q-kicker"><span></span>Выбери один вариант</div>
+          <figure class="q-photo" id="qPhoto" hidden><img id="qPhotoImg" src="" alt=""></figure>
+          <h2 id="qText">Загрузка вопроса…</h2>
+          <div class="options" id="qOptions"></div>
+          <div class="explain" id="qExplain" hidden></div>
+          <div class="actions end">
+            <span class="kbd-hint">Клавиши <kbd>1</kbd>–<kbd>4</kbd> — ответ, <kbd>Enter</kbd> — дальше</span>
+            <button class="btn btn-primary" id="qNext" type="button" disabled>Дальше
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- РЕЗУЛЬТАТ -->
+    <section class="view result-view" id="view-result" data-view="result" aria-label="Результат">
+      <div class="card result-card">
+        <div class="result-ring">
+          <svg viewBox="0 0 240 240" aria-hidden="true">
+            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cf5b0"/><stop offset=".6" stop-color="#2ed487"/><stop offset="1" stop-color="#ffd37a"/></linearGradient></defs>
+            <circle cx="120" cy="120" r="96" fill="none" stroke="rgba(158,255,203,.10)" stroke-width="12"/>
+            <circle class="ring-fill" id="ringFill" cx="120" cy="120" r="96" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" transform="rotate(-90 120 120)"/>
+          </svg>
+          <div class="ring-text"><b id="resultPct">0%</b><span><span id="resultCorrect">0</span> из 14</span></div>
+        </div>
+        <div class="eyebrow"><span></span>Викторина завершена</div>
+        <h2 id="resultTitle">Отличная работа!</h2>
+        <p class="lead" id="resultDesc"></p>
+        <div class="result-stats">
+          <div><b id="resultRight">0</b><span>верно</span></div>
+          <div><b id="resultWrong">0</b><span>ошибок</span></div>
+          <div><b id="resultBest">0</b><span>рекорд</span></div>
+        </div>
+        <div class="actions"><button class="btn btn-primary btn-lg" id="retryBtn" type="button">Пройти ещё раз</button><button class="btn btn-ghost btn-lg" type="button" data-nav="home">На старт</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="creditsModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+    <div class="modal-head"><div><span class="mini-label">Авторство и лицензии</span><h2 id="creditsTitle">Источники фотографий</h2></div><button class="icon-btn" type="button" data-close aria-label="Закрыть">✕</button></div>
+    <p class="modal-note">Все иллюстрации взяты из Wikimedia Commons. Полный список — ниже.</p>
+    <div class="credits-list" id="creditsList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+<script src="assets/credits.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -4,6 +4,8 @@
 
 **Демо:** https://vadimaosttt-ops.github.io/neyrobiologiya/
 
+**Мини-игра «Бактерии» (§ 7, 6 класс):** https://vadimaosttt-ops.github.io/neyrobiologiya/07-bakterii/
+
 ## Что внутри
 
 - **Викторина** — 12 вопросов по нервной системе, 4 варианта ответа, разбор после каждого ответа, подсчёт баллов и личный рекорд.
