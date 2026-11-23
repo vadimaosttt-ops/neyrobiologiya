@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#04100c">
+<meta name="theme-color" content="#f4f6fb">
 <meta name="description" content="Бактерии — мини-игра по § 7 учебника биологии для 6 класса: строение, формы, роль в природе и викторина на реальных микрофотографиях.">
 <title>Мир бактерий — мини-игра · § 7 · 6 класс</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -64,8 +64,8 @@
           </div>
           <div class="hero-stats">
             <div class="stat"><b>4</b><span>станции</span></div>
-            <div class="stat"><b>14</b><span>вопросов</span></div>
-            <div class="stat"><b>≈15</b><span>минут</span></div>
+            <div class="stat"><b>9</b><span>вопросов</span></div>
+            <div class="stat"><b>≈7</b><span>минут</span></div>
             <div class="stat best" id="bestWrap" hidden><b id="bestVal">0</b><span>рекорд</span></div>
           </div>
         </div>
@@ -84,7 +84,7 @@
           <button class="route-card" type="button" data-start="build"><img src="assets/ecoli.jpg" alt=""><span><i>01 · станция</i><b>Строение</b><small>Собери клетку из шести подписей</small></span></button>
           <button class="route-card" type="button" data-start="forms"><img src="assets/cocci.jpg" alt=""><span><i>02 · станция</i><b>Формы</b><small>Кокки, бациллы, спириллы, вибрионы</small></span></button>
           <button class="route-card" type="button" data-start="role"><img src="assets/yogurt.jpg" alt=""><span><i>03 · станция</i><b>Роль</b><small>Санитары, помощники, вредители</small></span></button>
-          <button class="route-card" type="button" data-start="quiz"><img src="assets/agar.jpg" alt=""><span><i>04 · финал</i><b>Викторина</b><small>14 вопросов по всему параграфу</small></span></button>
+          <button class="route-card" type="button" data-start="quiz"><img src="assets/agar.jpg" alt=""><span><i>04 · финал</i><b>Викторина</b><small>9 вопросов по всему параграфу</small></span></button>
         </div>
       </div>
     </section>
@@ -110,10 +110,10 @@
             <div class="cell-stage" id="cellStage">
               <svg class="cell-art" viewBox="0 0 900 460" role="img" aria-label="Схема строения бактерии">
                 <defs>
-                  <linearGradient id="cyto" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14533c"/><stop offset="1" stop-color="#082a1f"/></linearGradient>
+                  <linearGradient id="cyto" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbeafe"/><stop offset="1" stop-color="#bfdbfe"/></linearGradient>
                   <filter id="glowCell" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                 </defs>
-                <g class="leaders" fill="none" stroke="rgba(158,255,203,.28)" stroke-width="1.6" stroke-dasharray="4 7">
+                <g class="leaders" fill="none" stroke="rgba(47,107,255,.28)" stroke-width="1.6" stroke-dasharray="4 7">
                   <path data-lead="capsule" d="M300 125 L180 70"/>
                   <path data-lead="wall" d="M300 141 L180 180"/>
                   <path data-lead="membrane" d="M300 154 L180 290"/>
@@ -122,20 +122,20 @@
                   <path data-lead="flagellum" d="M770 230 L720 340"/>
                 </g>
                 <g class="flagellum-art" data-part="flagellum">
-                  <path d="M660 230 C700 230 700 186 740 186 C780 186 780 274 820 274" fill="none" stroke="#7cf5b0" stroke-width="6" stroke-linecap="round" filter="url(#glowCell)"/>
+                  <path d="M660 230 C700 230 700 186 740 186 C780 186 780 274 820 274" fill="none" stroke="#2f6bff" stroke-width="6" stroke-linecap="round" filter="url(#glowCell)"/>
                 </g>
                 <g class="bacterium">
-                  <rect x="215" y="125" width="450" height="210" rx="105" fill="rgba(124,245,176,.07)" stroke="#63d7e8" stroke-width="2" stroke-dasharray="10 8" data-part="capsule"/>
-                  <rect x="230" y="141" width="420" height="178" rx="89" fill="rgba(124,245,176,.10)" stroke="#7cf5b0" stroke-width="5" data-part="wall"/>
-                  <rect x="243" y="154" width="394" height="152" rx="76" fill="url(#cyto)" stroke="rgba(124,245,176,.55)" stroke-width="2" data-part="membrane"/>
-                  <g opacity=".55" fill="#7cf5b0">
+                  <rect x="215" y="125" width="450" height="210" rx="105" fill="rgba(47,107,255,.07)" stroke="#00a5a5" stroke-width="2" stroke-dasharray="10 8" data-part="capsule"/>
+                  <rect x="230" y="141" width="420" height="178" rx="89" fill="rgba(47,107,255,.10)" stroke="#2f6bff" stroke-width="5" data-part="wall"/>
+                  <rect x="243" y="154" width="394" height="152" rx="76" fill="url(#cyto)" stroke="rgba(47,107,255,.55)" stroke-width="2" data-part="membrane"/>
+                  <g opacity=".55" fill="#2f6bff">
                     <circle cx="330" cy="190" r="3"/><circle cx="370" cy="270" r="2.5"/><circle cx="520" cy="175" r="2.5"/><circle cx="560" cy="285" r="3"/><circle cx="610" cy="210" r="2.5"/>
                   </g>
-                  <path d="M330 230 C355 195 385 265 415 225 S475 270 505 228 S560 262 585 230" fill="none" stroke="#ffd37a" stroke-width="6" stroke-linecap="round" data-part="chromosome"/>
+                  <path d="M330 230 C355 195 385 265 415 225 S475 270 505 228 S560 262 585 230" fill="none" stroke="#f5a524" stroke-width="6" stroke-linecap="round" data-part="chromosome"/>
                   <ellipse cx="430" cy="230" rx="205" ry="82" fill="transparent" data-part="cytoplasm"/>
                 </g>
-                <circle cx="300" cy="125" r="4" fill="#63d7e8"/><circle cx="300" cy="141" r="4" fill="#7cf5b0"/><circle cx="300" cy="154" r="4" fill="#7cf5b0"/>
-                <circle cx="570" cy="205" r="4" fill="#ffd37a"/><circle cx="470" cy="235" r="4" fill="#ffd37a"/><circle cx="770" cy="230" r="4" fill="#7cf5b0"/>
+                <circle cx="300" cy="125" r="4" fill="#00a5a5"/><circle cx="300" cy="141" r="4" fill="#2f6bff"/><circle cx="300" cy="154" r="4" fill="#2f6bff"/>
+                <circle cx="570" cy="205" r="4" fill="#f5a524"/><circle cx="470" cy="235" r="4" fill="#f5a524"/><circle cx="770" cy="230" r="4" fill="#2f6bff"/>
               </svg>
               <div class="zones" id="zones"></div>
             </div>
@@ -194,7 +194,7 @@
           <div>
             <div class="badge"><span>03</span>Станция · Роль</div>
             <h2>Друг, санитар или враг?</h2>
-            <p>Распредели девять карточек по трём группам. Ошибки можно исправить до проверки.</p>
+            <p>Распредели шесть карточек по трём группам. Ошибки можно исправить до проверки.</p>
           </div>
           <div class="actions">
             <button class="btn btn-ghost btn-sm" id="roleReset" type="button">Сбросить</button>
@@ -209,7 +209,7 @@
           <div class="cycle-step"><img src="assets/silage.jpg" alt="Поле и силос"><b>Минеральные соли</b><small>снова растениям</small></div>
         </div>
         <div class="card sort-card">
-          <div class="side-head"><span class="mini-label">Распредели карточки</span><span class="count" id="roleCount">0 / 9</span></div>
+          <div class="side-head"><span class="mini-label">Распредели карточки</span><span class="count" id="roleCount">0 / 6</span></div>
           <div class="buckets" id="buckets"></div>
           <div class="tray-wrap"><span class="mini-label">Карточки</span><div class="chip-list wide" id="roleTray"></div></div>
           <div class="feedback" id="roleFeedback" hidden></div>
@@ -221,7 +221,7 @@
     <section class="view station-view quiz-view" id="view-quiz" data-view="quiz" aria-label="Викторина">
       <div class="quiz-wrap">
         <div class="quiz-top">
-          <span>Вопрос <b id="qNum">1</b> <i>/ 14</i> <em>Бактерии · § 7</em></span>
+          <span>Вопрос <b id="qNum">1</b> <i>/ 9</i> <em>Бактерии · § 7</em></span>
           <span class="score-pill">Баллы: <b id="qScore">0</b></span>
         </div>
         <div class="progress-track"><i id="qProgress"></i></div>
@@ -246,11 +246,11 @@
       <div class="card result-card">
         <div class="result-ring">
           <svg viewBox="0 0 240 240" aria-hidden="true">
-            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cf5b0"/><stop offset=".6" stop-color="#2ed487"/><stop offset="1" stop-color="#ffd37a"/></linearGradient></defs>
-            <circle cx="120" cy="120" r="96" fill="none" stroke="rgba(158,255,203,.10)" stroke-width="12"/>
+            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset=".6" stop-color="#00a5a5"/><stop offset="1" stop-color="#f5a524"/></linearGradient></defs>
+            <circle cx="120" cy="120" r="96" fill="none" stroke="rgba(47,107,255,.10)" stroke-width="12"/>
             <circle class="ring-fill" id="ringFill" cx="120" cy="120" r="96" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" transform="rotate(-90 120 120)"/>
           </svg>
-          <div class="ring-text"><b id="resultPct">0%</b><span><span id="resultCorrect">0</span> из 14</span></div>
+          <div class="ring-text"><b id="resultPct">0%</b><span><span id="resultCorrect">0</span> из 9</span></div>
         </div>
         <div class="eyebrow"><span></span>Викторина завершена</div>
         <h2 id="resultTitle">Отличная работа!</h2>

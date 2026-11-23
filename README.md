@@ -4,7 +4,7 @@
 
 **Демо:** https://vadimaosttt-ops.github.io/neyrobiologiya/
 
-**Мини-игра «Бактерии» (§ 7, 6 класс):** https://vadimaosttt-ops.github.io/neyrobiologiya/07-bakterii/
+**Мини-игра «Бактерии» (§ 7, 6 класс, ≈7 минут):** https://vadimaosttt-ops.github.io/neyrobiologiya/07-bakterii/
 
 ## Что внутри
 
